@@ -1,5 +1,7 @@
-const fs = require('fs');
+// const fs = require('fs');
 const http = require('http');
+const url = require("url");
+
 
 ////////////////////////
 /////SERVER
@@ -10,7 +12,20 @@ const http = require('http');
  * 
  */
 const server = http.createServer((req,res)=>{
-  console.log(req);
+  const pathName = req.url;
+  if(pathName === '/' || pathName === '/overview'){
+    res.end("This is the overview!");
+  }else if(pathName === '/products'){
+    res.end('This is the product');
+  }else{
+    //Putting Error, putting headers to inform the browser,client about the response
+    res.writeHead(404,{
+      'Content-type':'text/html',
+      'my-own-header' : 'hello-world'
+    })
+    res.end("<h1>Page not found</h1>");
+  }
+
   res.end('Hello from the server!');
 });
 /**
