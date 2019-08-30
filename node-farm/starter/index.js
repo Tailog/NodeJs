@@ -3,9 +3,9 @@ const http = require('http');
 const url = require("url");
 
 
-////////////////////////
-/////SERVER
-
+/*
+*SERVER
+*/
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(data);
 /**
@@ -16,15 +16,19 @@ const dataObj = JSON.parse(data);
  */
 const server = http.createServer((req,res)=>{
   const pathName = req.url;
+  //Overview Page
   if(pathName === '/' || pathName === '/overview'){
     res.end("This is the overview!");
+  //Product Page
   }else if(pathName === '/products'){
     res.end('This is the product');
+  //API Page
   }else if(pathName === '/api'){
       res.writeHead(200, {
         "Content-type": "application/json"
       });
       res.end(data);
+  //404 PAge
   }else{
     //Putting Error, putting headers to inform the browser,client about the response
     res.writeHead(404,{
